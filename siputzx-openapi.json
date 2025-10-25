@@ -1,0 +1,612 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Siputzx API",
+    "version": "1.0.0",
+    "description": "A versatile API server with a wide range of endpoints, including AI-powered services, anime content scraping, file downloads, and Cloudflare AI integrations."
+  },
+  "tags": [
+    {
+      "name": "AI",
+      "description": "AI-powered endpoints that provide access to various language and vision models."
+    },
+    {
+      "name": "Anime",
+      "description": "Endpoints for fetching information about anime and manga from various sources."
+    },
+    {
+      "name": "APK",
+      "description": "Endpoints for searching and retrieving information about Android APK files."
+    },
+    {
+      "name": "Cloudflare AI",
+      "description": "Endpoints that leverage Cloudflare's AI infrastructure for various tasks."
+    },
+    {
+      "name": "Currency",
+      "description": "Endpoints for currency exchange rates and cryptocurrency prices."
+    },
+    {
+      "name": "Downloader",
+      "description": "Endpoints to download media from various social media platforms."
+    },
+    {
+      "name": "News",
+      "description": "Endpoints for fetching the latest news from various Indonesian news outlets."
+    }
+  ],
+  "paths": {
+    "/api/hello": {
+      "get": {
+        "summary": "Returns a simple 'Hello, World!' message.",
+        "description": "A simple endpoint to check if the API is running.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Hello, World!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ai/bibleai": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Get answers from the Bible.",
+        "description": "This endpoint uses AI to answer questions based on the Bible. You can specify the translation to be used.",
+        "parameters": [
+          {
+            "name": "question",
+            "in": "query",
+            "required": true,
+            "description": "The question you want to ask.",
+            "schema": {
+              "type": "string",
+              "example": "What is the meaning of life?"
+            }
+          },
+          {
+            "name": "translation",
+            "in": "query",
+            "required": false,
+            "description": "The Bible translation to use.",
+            "schema": {
+              "type": "string",
+              "example": "NIV"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/api/ai/felo": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Get a response from the Felo AI model.",
+        "description": "This endpoint provides access to the Felo AI model.",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "description": "The query or prompt for the Felo AI.",
+            "schema": {
+              "type": "string",
+              "example": "Tell me a joke."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/api/ai/gemini-lite": {
+      "get": {
+        "tags": ["AI"],
+        "summary": "Get a response from the Gemini-Lite model.",
+        "description": "This endpoint provides access to Google's Gemini-Lite model. It can process both text and image inputs.",
+        "parameters": [
+          {
+            "name": "prompt",
+            "in": "query",
+            "required": true,
+            "description": "The text prompt for the model.",
+            "schema": {
+              "type": "string",
+              "example": "What is the capital of Indonesia?"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "description": "The specific Gemini model to use.",
+            "schema": {
+              "type": "string",
+              "example": "gemini-pro"
+            }
+          },
+          {
+            "name": "imgUrl",
+            "in": "query",
+            "required": false,
+            "description": "URL of an image to be processed by the model.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/api/anime/anichin/search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search for anime on Anichin.",
+        "description": "Searches for anime on anichin.cafe based on a query.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "The search query.",
+            "schema": {
+              "type": "string",
+              "example": "Naruto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of anime matching the search query."
+          }
+        }
+      }
+    },
+    "/api/anime/auratail/search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search for anime on Auratail.",
+        "description": "Searches for anime on auratail.vip based on a query.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "The search query.",
+            "schema": {
+              "type": "string",
+              "example": "One Piece"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of anime matching the search query."
+          }
+        }
+      }
+    },
+    "/api/anime/komikindo/search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search for manga on Komikindo.",
+        "description": "Searches for manga on komikindo.cz based on a query.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "The search query.",
+            "schema": {
+              "type": "string",
+              "example": "Boruto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of manga matching the search query."
+          }
+        }
+      }
+    },
+    "/api/anime/oploverz/search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search for anime on Oploverz.",
+        "description": "Searches for anime on oploverz.org based on a query.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "The search query.",
+            "schema": {
+              "type": "string",
+              "example": "Attack on Titan"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of anime matching the search query."
+          }
+        }
+      }
+    },
+    "/api/anime/otakdesu/search": {
+      "get": {
+        "tags": ["Anime"],
+        "summary": "Search for anime on Otakudesu.",
+        "description": "Searches for anime on otakudesu.cloud based on a query.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "The search query.",
+            "schema": {
+              "type": "string",
+              "example": "Jujutsu Kaisen"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of anime matching the search query."
+          }
+        }
+      }
+    },
+    "/api/apk/an1": {
+      "get": {
+        "tags": ["APK"],
+        "summary": "Search for an APK on an1.com.",
+        "description": "Searches for an APK on an1.com based on a query.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "The search query for the APK.",
+            "schema": {
+              "type": "string",
+              "example": "Minecraft"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of APKs matching the search query."
+          }
+        }
+      }
+    },
+    "/api/apk/openapk": {
+      "get": {
+        "tags": ["APK"],
+        "summary": "Search for an APK on openapk.net.",
+        "description": "Searches for an APK on openapk.net based on a query.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "The search query for the APK.",
+            "schema": {
+              "type": "string",
+              "example": "Spotify"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of APKs matching the search query."
+          }
+        }
+      }
+    },
+    "/api/apk/playstore": {
+      "get": {
+        "tags": ["APK"],
+        "summary": "Search for an app on the Google Play Store.",
+        "description": "Searches for an app on play.google.com based on a query.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "The search query for the app.",
+            "schema": {
+              "type": "string",
+              "example": "WhatsApp"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of apps matching the search query."
+          }
+        }
+      }
+    },
+    "/api/cf/v2/text2image": {
+      "get": {
+        "tags": ["Cloudflare AI"],
+        "summary": "Generate an image from a text prompt.",
+        "description": "Uses Cloudflare's AI to generate an image based on a textual description.",
+        "parameters": [
+          {
+            "name": "prompt",
+            "in": "query",
+            "required": true,
+            "description": "The text prompt to generate the image from.",
+            "schema": {
+              "type": "string",
+              "example": "A cat wearing a hat"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "description": "The specific model to use for generation.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The generated image."
+          }
+        }
+      }
+    },
+    "/api/currency/convert": {
+      "get": {
+        "tags": ["Currency"],
+        "summary": "Convert between currencies.",
+        "description": "Converts an amount from one currency to another.",
+        "parameters": [
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "description": "The amount to convert.",
+            "schema": {
+              "type": "number",
+              "example": 100
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "description": "The currency to convert from.",
+            "schema": {
+              "type": "string",
+              "example": "USD"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "description": "The currency to convert to.",
+            "schema": {
+              "type": "string",
+              "example": "IDR"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The converted amount."
+          }
+        }
+      }
+    },
+    "/api/currency/crypto/{symbol}": {
+      "get": {
+        "tags": ["Currency"],
+        "summary": "Get the price of a cryptocurrency.",
+        "description": "Retrieves the current price of a cryptocurrency specified by its symbol.",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "required": true,
+            "description": "The symbol of the cryptocurrency.",
+            "schema": {
+              "type": "string",
+              "example": "BTC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The current price of the cryptocurrency."
+          }
+        }
+      }
+    },
+    "/api/download/snackvideo": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Download a video from Snack Video.",
+        "description": "Downloads a video from the provided Snack Video URL.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "description": "The URL of the Snack Video to download.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The downloaded video file."
+          }
+        }
+      }
+    },
+    "/api/download/twitter": {
+      "get": {
+        "tags": ["Downloader"],
+        "summary": "Download a video from Twitter.",
+        "description": "Downloads a video from the provided Twitter URL.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "description": "The URL of the Twitter video to download.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The downloaded video file."
+          }
+        }
+      }
+    },
+    "/api/news/antara": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from Antara News.",
+        "description": "Fetches the latest news articles from Antara News.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    },
+    "/api/news/cnbcindonesia": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from CNBC Indonesia.",
+        "description": "Fetches the latest news articles from CNBC Indonesia.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    },
+    "/api/news/cnnindonesia": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from CNN Indonesia.",
+        "description": "Fetches the latest news articles from CNN Indonesia.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    },
+    "/api/news/kompas": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from Kompas.",
+        "description": "Fetches the latest news articles from Kompas.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    },
+    "/api/news/liputan6": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from Liputan6.",
+        "description": "Fetches the latest news articles from Liputan6.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    },
+    "/api/news/merdeka": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from Merdeka.",
+        "description": "Fetches the latest news articles from Merdeka.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    },
+    "/api/news/sindonews": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from Sindo News.",
+        "description": "Fetches the latest news articles from Sindo News.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    },
+    "/api/news/suara": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from Suara.com.",
+        "description": "Fetches the latest news articles from Suara.com.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    },
+    "/api/news/tribun": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get the latest news from Tribun News.",
+        "description": "Fetches the latest news articles from Tribun News.",
+        "responses": {
+          "200": {
+            "description": "A list of the latest news articles."
+          }
+        }
+      }
+    }
+  }
+}
